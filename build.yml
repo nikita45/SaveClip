@@ -21,10 +21,12 @@ jobs:
 
       - name: Build
         run: |
+          DIR=$(dirname "$(find . -name gradlew -type f | head -1)")
+          cd "$DIR"
           chmod +x gradlew
           ./gradlew assembleRelease --stacktrace
 
       - uses: actions/upload-artifact@v4
         with:
           name: SaveClip-apk
-          path: app/build/outputs/apk/release/*.apk
+          path: "**/app/build/outputs/apk/release/*.apk"
